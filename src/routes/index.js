@@ -3,8 +3,9 @@ var router = express.Router();
 // const app = express();
 
 const sampleRoutes = require("../routes/sampleRoutes");
+const authRoutes = require("../routes/authentication");
 
 router.use("/sample", sampleRoutes);
-// app.use("/auth");
+router.use("/auth", authRoutes);
 
 module.exports = router;
