@@ -20,5 +20,5 @@ app.use(notFound);
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log("\x1b[33m%s\x1b[0m", `Server listening on ${port}`);
+  console.log("\x1b[33m%s\x1b[0m", `Server listening on http://localhost:${port}`);
 });
