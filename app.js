@@ -1,0 +1,26 @@
+const express = require("express");
+require("dotenv").config();
+const app = express();
+var indexRouter = require("./src/routes/index");
+const { errorHandler, notFound } = require("./src/midleWares/errorHandler");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  require("cors")({
+    origin: "*",
+  })
+);
+
+app.use((error,req,res,next)=>{
+console.log(error,'lksdnglkjsg');
+})
+
+app.use("/", indexRouter);
+
+app.use(notFound);
+app.use(errorHandler);
+
+app.listen(8080, () => {
+  console.log("\x1b[33m%s\x1b[0m", `Server listening on ${8080}`);
+});
