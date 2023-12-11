@@ -5,7 +5,7 @@ const { userController } = require("../controllers");
 var router = express.Router();
 
 router.post(
-  "/login",
+  "/log-in",
   validateRequestBody(userValidations2?.userLogin),
   userController.login
 );
