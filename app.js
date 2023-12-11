@@ -12,10 +12,6 @@ app.use(
   })
 );
 
-app.use((error,req,res,next)=>{
-console.log(error,'lksdnglkjsg');
-})
-
 app.use("/", indexRouter);
 
 app.use(notFound);
