@@ -3,8 +3,11 @@ require("dotenv").config();
 const app = express();
 var indexRouter = require("./src/routes/index");
 const { errorHandler, notFound } = require("./src/midleWares/errorHandler");
+const { connectToDatabase } = require("./src/config/dataBaseConfig");
 
 const port = process.env.PORT
+
+connectToDatabase()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
