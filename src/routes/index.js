@@ -1,15 +1,10 @@
 var express = require("express");
 var router = express.Router();
-const { validateRequestQuery } = require("zod-express-middleware");
-const { userValidations } = require("../validations");
+// const app = express();
 
-/* GET home page. */
-router.get(
-  "/",
-  validateRequestQuery(userValidations?.sampleSchema),
-  (req, res) => {
-    res.status(200).json({ title: "Express" });
-  }
-);
+const sampleRoutes = require("../routes/sampleRoutes");
+
+router.use("/sample", sampleRoutes);
+// app.use("/auth");
 
 module.exports = router;
