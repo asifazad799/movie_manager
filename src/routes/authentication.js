@@ -4,11 +4,16 @@ var express = require("express");
 const { userController } = require("../controllers");
 var router = express.Router();
 
-/* GET home page. */
 router.post(
   "/login",
   validateRequestBody(userValidations2?.userLogin),
   userController.login
+);
+
+router.post(
+  "/sign-up",
+  validateRequestBody(userValidations2?.userLogin),
+  userController.signUp
 );
 
 module.exports = router;
