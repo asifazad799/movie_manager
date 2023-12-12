@@ -20,6 +20,8 @@ const bulkUploadMovieList = async (data) => {
   return res;
 };
 
+
+//used to create movie list for user in userMovielist collection
 const creatUserMovieList = async (data) => {
   let res = await UserMovieList.create({
     userId: data?.userId,
@@ -31,9 +33,18 @@ const creatUserMovieList = async (data) => {
   return res;
 };
 
+const updateUserMovieList = async ({ movieListId, selectedlist }) => {
+  let res = await UserMovieList.findByIdAndUpdate(
+    { _id: movieListId },
+    { $push: { movieList: selectedlist } }
+  );
+  return res;
+};
+
 module.exports = {
   checkExistingMovie,
   addToMovieCollection,
   bulkUploadMovieList,
   creatUserMovieList,
+  updateUserMovieList,
 };

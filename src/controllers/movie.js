@@ -1,4 +1,4 @@
-const { movieHelper } = require("../helpers");
+const { movieHelper, userHelpers } = require("../helpers");
 
 const addMovieToUser = async (req, res, next) => {
   try {
@@ -6,21 +6,29 @@ const addMovieToUser = async (req, res, next) => {
 
     console.log(req?.body, "hhai");
 
-    // //check wheathre movie already exist in our DB
-    // let isMovieExist = await movieHelper?.checkExistingMovie(title);
-
-    // let movieId;
-    // //if movie does not exist in our DB, add movie to DB
-    // if (isMovieExist == null) {
-    //   movieId = await movieHelper?.addToMovieCollection({ poster, title });
-    // }
-
+    let movieList;
     if (!rest?.movieListId) {
-      //means user does not have a movie list and add the @movieId to it
-      let res = await movieHelper.creatUserMovieList({ selectedlist, userId });
+      movieList = await movieHelper.creatUserMovieList({
+        selectedlist,
+        userId,
+      });
+      await userHelpers.updateUserMovieListId({
+        userId,
+        movieListId: movieList?._id,
+      });
+    } else {
+      await movieHelper?.updateUserMovieList({
+        movieListId: rest?.movieListId,
+        selectedlist,
+      });
     }
 
-    res.status(200).json({ message: "sucess" });
+    // if(rest?.movieListId){
+
+    // }
+    console.log(movieList?._id, "bbjj");
+
+    res.status(200).json({ message: "success" });
   } catch (error) {
     next(error);
   }

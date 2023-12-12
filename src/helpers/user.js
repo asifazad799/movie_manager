@@ -12,7 +12,15 @@ const findUser = async (userData) => {
   return await User?.findOne({ userId: userData?.userId });
 };
 
+const updateUserMovieListId = async (usrData) => {
+  return await User?.updateOne(
+    { _id: usrData?.userId },
+    { movieListId: usrData?.movieListId }
+  );
+};
+
 module.exports = {
   addUser,
   findUser,
+  updateUserMovieListId,
 };
