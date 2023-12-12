@@ -1,11 +1,15 @@
 const { User } = require("../models/dbSchema/user");
 
 const addUser = async (userData) => {
-  let user = new User({
+  
+  let res = await User.create({
     ...userData,
   });
+  console.log(res,'ag');
 
-  return user.save();
+  await res.save();
+  
+  return res;
 };
 
 const findUser = async (userData) => {
