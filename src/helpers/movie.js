@@ -44,12 +44,15 @@ const updateUserMovieList = async ({ movieListId, selectedlist }) => {
   return res;
 };
 
-const getAllMovies = async ({ search }) => {
+const getAllMovies = async ({ search, neList }) => {
+  console.log(neList, "hhg");
   let resp;
   if (search) {
     resp = await Movie.findOne({ title: search });
   } else {
-    resp = await Movie.find();
+    resp = await Movie.find({
+      _id: { $nin: neList?.split(",") ? neList?.split(",") : [] },
+    });
   }
   return resp;
 };
@@ -62,7 +65,7 @@ const getUserMovieList = async ({ userId }) => {
         from: "movies",
         localField: "movieList.movieId",
         foreignField: "_id",
-        as: "movieList",
+        as: "newMovieList",
       },
     },
   ]);

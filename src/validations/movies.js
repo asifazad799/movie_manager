@@ -15,6 +15,7 @@ const movieValidator = zod
 const movieSearch = zod
   .object({
     search: zod.string().optional(),
+    neList: zod.string().optional(),
   })
   .strict();
 

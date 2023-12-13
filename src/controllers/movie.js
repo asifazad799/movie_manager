@@ -39,7 +39,10 @@ const bulkAddToMovieList = async (req, res, next) => {
 const getMovieList = async (req, res, next) => {
   try {
     // console.log(req?.query?.search,'nkkkn');
-    let resp = await movieHelper?.getAllMovies({ search: req?.query?.search });
+    let resp = await movieHelper?.getAllMovies({
+      search: req?.query?.search,
+      neList: req?.query?.neList,
+    });
 
     return res.status(200).json({ message: "success", list: resp });
   } catch (error) {
