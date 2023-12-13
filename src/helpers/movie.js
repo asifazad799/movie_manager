@@ -15,11 +15,11 @@ const addToMovieCollection = async (data) => {
   return res;
 };
 
+//internal use only to update DB with more movie data
 const bulkUploadMovieList = async (data) => {
   let res = await Movie.insertMany(data);
   return res;
 };
-
 
 //used to create movie list for user in userMovielist collection
 const creatUserMovieList = async (data) => {
@@ -33,6 +33,7 @@ const creatUserMovieList = async (data) => {
   return res;
 };
 
+//update users existing user movie list
 const updateUserMovieList = async ({ movieListId, selectedlist }) => {
   let res = await UserMovieList.findByIdAndUpdate(
     { _id: movieListId },

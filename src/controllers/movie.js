@@ -4,8 +4,6 @@ const addMovieToUser = async (req, res, next) => {
   try {
     const { selectedlist, userId, ...rest } = req?.body;
 
-    console.log(req?.body, "hhai");
-
     let movieList;
     if (!rest?.movieListId) {
       movieList = await movieHelper.creatUserMovieList({
@@ -22,11 +20,6 @@ const addMovieToUser = async (req, res, next) => {
         selectedlist,
       });
     }
-
-    // if(rest?.movieListId){
-
-    // }
-    console.log(movieList?._id, "bbjj");
 
     res.status(200).json({ message: "success" });
   } catch (error) {
