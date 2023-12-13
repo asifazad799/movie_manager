@@ -1,6 +1,8 @@
 const { Movie } = require("../models/dbSchema/movies");
 const { User } = require("../models/dbSchema/user");
 const { UserMovieList } = require("../models/dbSchema/userMovieList");
+const mongoose = require("mongoose");
+const { ObjectId } = require("../utils/mongoose");
 
 const checkExistingMovie = async (movie) => {
   let res = await Movie.findOne({ title: movie?.title });
@@ -37,19 +39,34 @@ const creatUserMovieList = async (data) => {
 const updateUserMovieList = async ({ movieListId, selectedlist }) => {
   let res = await UserMovieList.findByIdAndUpdate(
     { _id: movieListId },
-    { $push: { movieList: selectedlist } }
+    { $addToSet: { movieList: selectedlist } }
   );
   return res;
 };
 
 const getAllMovies = async ({ search }) => {
-  console.log(search, "resp");
   let resp;
   if (search) {
     resp = await Movie.findOne({ title: search });
   } else {
     resp = await Movie.find();
   }
+  return resp;
+};
+
+const getUserMovieList = async ({ userId }) => {
+  let resp = await UserMovieList.aggregate([
+    { $match: { userId: ObjectId(userId) } },
+    {
+      $lookup: {
+        from: "movies",
+        localField: "movieList.movieId",
+        foreignField: "_id",
+        as: "movieList",
+      },
+    },
+  ]);
+
   return resp;
 };
 
@@ -60,4 +77,5 @@ module.exports = {
   creatUserMovieList,
   updateUserMovieList,
   getAllMovies,
+  getUserMovieList,
 };

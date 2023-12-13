@@ -19,6 +19,12 @@ router.get(
   movieController?.getMovieList
 );
 
+router.get(
+  "/user-movie-list",
+  validateRequestQuery(movieValidator?.userMovieList),
+  movieController.getUserMovieList
+);
+
 router.post("/updateMovieList", movieController?.bulkAddToMovieList);
 
 module.exports = router;

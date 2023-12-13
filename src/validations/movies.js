@@ -18,4 +18,10 @@ const movieSearch = zod
   })
   .strict();
 
-module.exports = { movieValidator, movieSearch };
+const userMovieList = zod
+  .object({
+    userId: zod.string(),
+  })
+  .strict();
+
+module.exports = { movieValidator, movieSearch, userMovieList };

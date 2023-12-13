@@ -47,8 +47,21 @@ const getMovieList = async (req, res, next) => {
   }
 };
 
+const getUserMovieList = async (req, res, next) => {
+  try {
+    let resp = await movieHelper?.getUserMovieList({
+      userId: req?.query?.userId,
+    });
+
+    return res.status(200).json({ list: resp });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addMovieToUser,
   bulkAddToMovieList,
   getMovieList,
+  getUserMovieList,
 };

@@ -5,10 +5,7 @@ const authRoutes = require("../routes/authentication");
 const protectedRoutes = require("../routes/protectedRoutes");
 const { authMidleWares } = require("../midleWares");
 
-// router.use("/", sampleRoutes);
-router.use("/",authMidleWares?.authenticateUser, protectedRoutes);
 router.use("/auth", authRoutes);
-
-// router.use("/auth",authMidleWares?.authenticateUser, authRoutes);
+router.use("/",authMidleWares?.authenticateUser, protectedRoutes);
 
 module.exports = router;
