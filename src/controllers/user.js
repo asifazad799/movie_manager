@@ -1,5 +1,6 @@
 const { userHelpers } = require("../helpers");
 const generateToken = require("../utils/jwt");
+const jwt = require("jsonwebtoken");
 
 const login = async (req, res, next) => {
   try {
@@ -10,10 +11,13 @@ const login = async (req, res, next) => {
       throw { message: "user not found", statusCode: 404 };
     }
 
+    let token = generateToken(user?.userId);
+
     return res.status(200).json({
       message: "success",
       user: user,
-      token: generateToken(user?.userId),
+      token: token,
+      expiry: jwt.verify(token,process.env.KEY).exp,
     });
   } catch (error) {
     next(error);
