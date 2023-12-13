@@ -14,8 +14,8 @@ const movieValidator = zod
 
 const movieSearch = zod
   .object({
-    search: zod.string().optional(),
-    neList: zod.string().optional(),
+    search: zod.string().optional().nullable(),
+    neList: zod.string().optional().nullable(),
   })
   .strict();
 
@@ -25,4 +25,11 @@ const userMovieList = zod
   })
   .strict();
 
-module.exports = { movieValidator, movieSearch, userMovieList };
+const deleteMovie = zod
+  .object({
+    movieId: zod.string(),
+    userId: zod.string(),
+  })
+  .strict();
+
+module.exports = { movieValidator, movieSearch, userMovieList, deleteMovie };

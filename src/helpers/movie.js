@@ -48,7 +48,10 @@ const getAllMovies = async ({ search, neList }) => {
   console.log(neList, "hhg");
   let resp;
   if (search) {
-    resp = await Movie.findOne({ title: search });
+    resp = await Movie.find({
+      $text: { $search: search },
+      _id: { $nin: neList?.split(",") ? neList?.split(",") : [] },
+    });
   } else {
     resp = await Movie.find({
       _id: { $nin: neList?.split(",") ? neList?.split(",") : [] },

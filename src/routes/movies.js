@@ -27,4 +27,10 @@ router.get(
 
 router.post("/updateMovieList", movieController?.bulkAddToMovieList);
 
+router.delete(
+  "/",
+  validateRequestQuery(movieValidator?.userMovieList),
+  movieController?.deleteMovie
+);
+
 module.exports = router;

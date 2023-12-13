@@ -62,9 +62,21 @@ const getUserMovieList = async (req, res, next) => {
   }
 };
 
+const deleteMovie = async (req, res, next) => {
+  try {
+    let res = await movieHelper?.delete({
+      userId: req?.query?.userId,
+      
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addMovieToUser,
   bulkAddToMovieList,
   getMovieList,
   getUserMovieList,
+  deleteMovie,
 };
