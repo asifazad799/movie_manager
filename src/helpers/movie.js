@@ -76,6 +76,21 @@ const getUserMovieList = async ({ userId }) => {
   return resp;
 };
 
+const deleteMovieItem = async ({ userId, movieId }) => {
+  let resp = await UserMovieList.updateOne(
+    { userId: ObjectId(userId) },
+    {
+      $pull: {
+        movieList: { _id: ObjectId(movieId) },
+      },
+    }
+  );
+// let resp = await UserMovieList.fin
+  console.log(resp,'helo');
+//   resp.save()
+  return resp;
+};
+
 module.exports = {
   checkExistingMovie,
   addToMovieCollection,
@@ -84,4 +99,5 @@ module.exports = {
   updateUserMovieList,
   getAllMovies,
   getUserMovieList,
+  deleteMovieItem,
 };

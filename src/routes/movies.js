@@ -28,8 +28,8 @@ router.get(
 router.post("/updateMovieList", movieController?.bulkAddToMovieList);
 
 router.delete(
-  "/",
-  validateRequestQuery(movieValidator?.userMovieList),
+  "/delete",
+  validateRequestQuery(movieValidator?.deleteMovie),
   movieController?.deleteMovie
 );
 

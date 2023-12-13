@@ -64,10 +64,12 @@ const getUserMovieList = async (req, res, next) => {
 
 const deleteMovie = async (req, res, next) => {
   try {
-    let res = await movieHelper?.delete({
+    let resp = await movieHelper?.deleteMovieItem({
       userId: req?.query?.userId,
-      
+      movieId: req?.query?.movieId,
     });
+
+    return res.status(200).json({ message: "success" });
   } catch (error) {
     next(error);
   }
