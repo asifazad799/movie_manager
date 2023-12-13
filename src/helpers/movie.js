@@ -81,12 +81,12 @@ const deleteMovieItem = async ({ userId, movieId }) => {
     { userId: ObjectId(userId) },
     {
       $pull: {
-        movieList: { _id: ObjectId(movieId) },
+        movieList: { movieId: ObjectId(movieId) },
       },
     }
   );
 // let resp = await UserMovieList.fin
-  console.log(resp,'helo');
+//   console.log(resp,'helo');
 //   resp.save()
   return resp;
 };
