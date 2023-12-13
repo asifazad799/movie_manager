@@ -11,4 +11,11 @@ const movieValidator = zod
     selectedlist: zod.array(movieInfo),
   })
   .strict();
-module.exports = { movieValidator };
+
+const movieSearch = zod
+  .object({
+    search: zod.string().optional(),
+  })
+  .strict();
+
+module.exports = { movieValidator, movieSearch };

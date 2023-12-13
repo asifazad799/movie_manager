@@ -36,7 +36,19 @@ const bulkAddToMovieList = async (req, res, next) => {
   }
 };
 
+const getMovieList = async (req, res, next) => {
+  try {
+    // console.log(req?.query?.search,'nkkkn');
+    let resp = await movieHelper?.getAllMovies({ search: req?.query?.search });
+
+    return res.status(200).json({ message: "success", list: resp });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   addMovieToUser,
   bulkAddToMovieList,
+  getMovieList,
 };

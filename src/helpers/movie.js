@@ -42,10 +42,22 @@ const updateUserMovieList = async ({ movieListId, selectedlist }) => {
   return res;
 };
 
+const getAllMovies = async ({ search }) => {
+  console.log(search, "resp");
+  let resp;
+  if (search) {
+    resp = await Movie.findOne({ title: search });
+  } else {
+    resp = await Movie.find();
+  }
+  return resp;
+};
+
 module.exports = {
   checkExistingMovie,
   addToMovieCollection,
   bulkUploadMovieList,
   creatUserMovieList,
   updateUserMovieList,
+  getAllMovies,
 };
