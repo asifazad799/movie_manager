@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const login = async (req, res, next) => {
   try {
     let user = await userHelpers?.findUser(req?.body);
-    console.log(user);
+    //.log(user);
 
     if (user == null) {
       throw { message: "user not found", statusCode: 404 };
@@ -17,7 +17,7 @@ const login = async (req, res, next) => {
       message: "success",
       user: user,
       token: token,
-      expiry: jwt.verify(token,process.env.KEY).exp,
+      expiry: jwt.verify(token, process.env.KEY).exp,
     });
   } catch (error) {
     next(error);

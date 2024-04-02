@@ -4,13 +4,12 @@ const movieInfo = zod.object({
   movieId: zod.string(),
 });
 
-const movieValidator = zod
-  .object({
-    userId: zod.string(),
-    movieListId: zod.string().nullable(),
-    selectedlist: zod.array(movieInfo),
-  })
-  .strict();
+const movieValidator = zod.object({
+  userId: zod.string(),
+  movieListId: zod.string().nullable(),
+  selectedlist: zod.array(movieInfo),
+});
+// .strict();
 
 const movieSearch = zod
   .object({
