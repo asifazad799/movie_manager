@@ -9,7 +9,6 @@ const movieValidator = zod.object({
   movieListId: zod.string().nullable(),
   selectedlist: zod.array(movieInfo),
 });
-// .strict();
 
 const movieSearch = zod
   .object({

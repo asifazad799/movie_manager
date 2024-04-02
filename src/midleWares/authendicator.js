@@ -6,7 +6,6 @@ const authenticateUser = async (req, res, next) => {
   if (token) {
     jwt.verify(token.split(" ")[1], process.env.KEY, (err, valid) => {
       if (err) {
-        // err.statusCode = 401;
         next(err);
       }
       if (valid) {

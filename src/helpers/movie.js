@@ -45,7 +45,6 @@ const updateUserMovieList = async ({ movieListId, selectedlist }) => {
 };
 
 const getAllMovies = async ({ search, neList }) => {
-  //.log(neList, "hhg");
   let resp;
   if (search) {
     resp = await Movie.find({
@@ -85,9 +84,6 @@ const deleteMovieItem = async ({ userId, movieId }) => {
       },
     }
   );
-  // let resp = await UserMovieList.fin
-  //   //.log(resp,'helo');
-  //   resp.save()
   return resp;
 };
 
