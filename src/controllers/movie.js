@@ -21,7 +21,7 @@ const addMovieToUser = async (req, res, next) => {
       });
     }
 
-    res.status(200).json({ message: "success" });
+    res.status(200).json({ message: "success", movieList });
   } catch (error) {
     next(error);
   }
@@ -38,7 +38,6 @@ const bulkAddToMovieList = async (req, res, next) => {
 
 const getMovieList = async (req, res, next) => {
   try {
-    // console.log(req?.query?.search,'nkkkn');
     let resp = await movieHelper?.getAllMovies({
       search: req?.query?.search,
       neList: req?.query?.neList,
@@ -64,7 +63,7 @@ const getUserMovieList = async (req, res, next) => {
 
 const deleteMovie = async (req, res, next) => {
   try {
-    let resp = await movieHelper?.deleteMovieItem({
+    await movieHelper?.deleteMovieItem({
       userId: req?.query?.userId,
       movieId: req?.query?.movieId,
     });
