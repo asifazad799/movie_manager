@@ -27,9 +27,7 @@ const creatUserMovieList = async (data) => {
     userId: data?.userId,
     movieList: data?.selectedlist,
   });
-
   res.save();
-
   return res;
 };
 
