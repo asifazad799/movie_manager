@@ -47,11 +47,11 @@ const getAllMovies = async ({ search, neList }) => {
       $text: {
         $search: `\"${search}\"`,
       },
-      _id: { $nin: neList?.split(",") ? neList?.split(",") : [] },
+      _id: { $nin: neList ? neList : [] },
     });
   } else {
     resp = await Movie.find({
-      _id: { $nin: neList?.split(",") ? neList?.split(",") : [] },
+      _id: { $nin: neList ? neList : [] },
     });
   }
   return resp;

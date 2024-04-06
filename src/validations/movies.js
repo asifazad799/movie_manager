@@ -14,12 +14,16 @@ const movieSearch = zod
   .object({
     search: zod.string().optional().nullable(),
     neList: zod.string().optional().nullable(),
+    userId: zod.string().optional().nullable(),
   })
   .strict();
 
-const userMovieList = zod.object({
-  userId: zod.string(),
-});
+const userMovieList = zod
+  .object({
+    userId: zod.string().optional().nullable(),
+    search: zod.string().optional().nullable(),
+  })
+  .strict();
 
 const deleteMovie = zod
   .object({
