@@ -88,13 +88,41 @@ const getUserMovieList = async ({ userId, search = "" }) => {
     {
       $lookup: {
         from: "movies",
-        let: { movieIds: "$movieList.movieId" },
+        let: {
+          movieIds: "$movieList.movieId",
+          watched: "$movieList.watched",
+        },
         pipeline: pipline,
         as: "newMovieList",
       },
     },
+    {
+      $addFields: {
+        newMovieList: {
+          $map: {
+            input: "$newMovieList",
+            in: {
+              $mergeObjects: [
+                "$$this",
+                {
+                  watched: {
+                    $arrayElemAt: [
+                      "$movieList.watched",
+                      {
+                        $indexOfArray: ["$newMovieList._id", "$$this._id"],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        },
+        movieList: "$$REMOVE",
+      },
+    },
   ]);
-  return resp;
+  return resp[0];
 };
 
 const deleteMovieItem = async ({ userId, movieId }) => {
