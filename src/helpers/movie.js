@@ -1,7 +1,5 @@
 const { Movie } = require("../models/dbSchema/movies");
-const { User } = require("../models/dbSchema/user");
 const { UserMovieList } = require("../models/dbSchema/userMovieList");
-const mongoose = require("mongoose");
 const { ObjectId } = require("../utils/mongoose");
 
 const checkExistingMovie = async (movie) => {
