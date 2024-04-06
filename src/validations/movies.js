@@ -17,11 +17,9 @@ const movieSearch = zod
   })
   .strict();
 
-const userMovieList = zod
-  .object({
-    userId: zod.string(),
-  })
-  .strict();
+const userMovieList = zod.object({
+  userId: zod.string(),
+});
 
 const deleteMovie = zod
   .object({

@@ -38,9 +38,11 @@ const bulkAddToMovieList = async (req, res, next) => {
 
 const getMovieList = async (req, res, next) => {
   try {
+    const { search = "", neList = [] } = req?.query;
+
     let resp = await movieHelper?.getAllMovies({
-      search: req?.query?.search,
-      neList: req?.query?.neList,
+      search,
+      neList,
     });
 
     return res.status(200).json({ message: "success", list: resp });
@@ -51,8 +53,10 @@ const getMovieList = async (req, res, next) => {
 
 const getUserMovieList = async (req, res, next) => {
   try {
+    const { userId, search = "" } = req?.query;
     let resp = await movieHelper?.getUserMovieList({
-      userId: req?.query?.userId,
+      userId,
+      search,
     });
 
     return res.status(200).json({ list: resp });

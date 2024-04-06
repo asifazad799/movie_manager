@@ -48,7 +48,9 @@ const getAllMovies = async ({ search, neList }) => {
   let resp;
   if (search) {
     resp = await Movie.find({
-      $text: { $search: search },
+      $text: {
+        $search: `\"${search}\"`,
+      },
       _id: { $nin: neList?.split(",") ? neList?.split(",") : [] },
     });
   } else {
@@ -59,19 +61,39 @@ const getAllMovies = async ({ search, neList }) => {
   return resp;
 };
 
-const getUserMovieList = async ({ userId }) => {
+const getUserMovieList = async ({ userId, search = "" }) => {
+  let pipline = [
+    {
+      $match: {
+        $expr: {
+          $in: ["$_id", "$$movieIds"],
+        },
+      },
+    },
+  ];
+
+  if (search != "") {
+    pipline = [
+      {
+        $match: {
+          $text: { $search: search },
+        },
+      },
+      ...pipline,
+    ];
+  }
+
   let resp = await UserMovieList.aggregate([
     { $match: { userId: ObjectId(userId) } },
     {
       $lookup: {
         from: "movies",
-        localField: "movieList.movieId",
-        foreignField: "_id",
+        let: { movieIds: "$movieList.movieId" },
+        pipeline: pipline,
         as: "newMovieList",
       },
     },
   ]);
-
   return resp;
 };
 
