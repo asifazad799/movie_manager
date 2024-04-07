@@ -24,6 +24,10 @@ EXPOSE $PORT
 # Load environment variables from .env file
 ARG ENV_FILE
 ENV ENV_FILE=${ENV_FILE}
-RUN if [ -f "$ENV_FILE" ]; then set -o allexport; source $ENV_FILE; set +o allexport; fi
+RUN if [ -f "$ENV_FILE" ]; then 
+        set -o allexport; 
+        source $ENV_FILE; 
+        set +o allexport; 
+    fi
 
 CMD ["npm","run","prod"]
