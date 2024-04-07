@@ -1,9 +1,9 @@
-FROM node:20.12.0
+FROM node:20-alpine
 
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=8080
-ENV DBKEY=mongodb+srv://asif_azad:3RI8g4Ejw2Q2OPNQ@cluster0.gtd9mvq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+ENV DBKEY=
 ENV KEY=123ui
 
 # Set the working directory
