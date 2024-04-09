@@ -11,7 +11,8 @@ router.get("/test", async (req, res) => {
 
 router.get("/test-error", async (req, res, next) => {
   try {
-    throw new Error("Test error");
+    console.log("Simulating server crash...");
+    process.exit(1);
   } catch (error) {
     next(error);
   }
