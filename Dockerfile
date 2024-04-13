@@ -1,10 +1,10 @@
 FROM node:20-alpine
 
+ARG PORT
+
 # Set environment variables
 ENV NODE_ENV=production
-# ENV PORT=
-# ENV DBKEY=
-# ENV KEY=
+ENV PORT=$PORT
 
 # Set the working directory
 WORKDIR /app
