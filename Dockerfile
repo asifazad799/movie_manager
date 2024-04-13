@@ -1,10 +1,10 @@
 FROM node:20-alpine
 
+ARG PORT
+
 # Set environment variables
 ENV NODE_ENV=production
-# ENV PORT=
-# ENV DBKEY=
-# ENV KEY=
+ENV PORT=$PORT
 
 # Set the working directory
 WORKDIR /app
@@ -19,6 +19,6 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Expose the port specified in the PORT environment variable
-# EXPOSE $PORT
+EXPOSE $PORT
 
 CMD ["npm","run","prod"]
