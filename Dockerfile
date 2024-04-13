@@ -19,6 +19,6 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Expose the port specified in the PORT environment variable
-# EXPOSE $PORT
+EXPOSE $PORT
 
 CMD ["npm","run","prod"]
