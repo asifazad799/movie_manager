@@ -1,4 +1,4 @@
-const {StatusCodes, getReasonPhrase} = require('http-status-codes');
+const { StatusCodes, getReasonPhrase } = require("http-status-codes");
 
 const sendErrorResponse = (res, error) => {
   const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;

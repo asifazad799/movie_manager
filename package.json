@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "env-cmd -f .env nodemon app.js"
+    "start": "env-cmd -f .env nodemon app.js",
+    "prod": "node app.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

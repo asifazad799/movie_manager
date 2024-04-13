@@ -1,7 +1,5 @@
 const { Movie } = require("../models/dbSchema/movies");
-const { User } = require("../models/dbSchema/user");
 const { UserMovieList } = require("../models/dbSchema/userMovieList");
-const mongoose = require("mongoose");
 const { ObjectId } = require("../utils/mongoose");
 
 const checkExistingMovie = async (movie) => {
@@ -29,9 +27,7 @@ const creatUserMovieList = async (data) => {
     userId: data?.userId,
     movieList: data?.selectedlist,
   });
-
   res.save();
-
   return res;
 };
 
@@ -45,35 +41,84 @@ const updateUserMovieList = async ({ movieListId, selectedlist }) => {
 };
 
 const getAllMovies = async ({ search, neList }) => {
-  console.log(neList, "hhg");
   let resp;
   if (search) {
     resp = await Movie.find({
-      $text: { $search: search },
-      _id: { $nin: neList?.split(",") ? neList?.split(",") : [] },
+      $text: {
+        $search: `\"${search}\"`,
+      },
+      _id: { $nin: neList ? neList : [] },
     });
   } else {
     resp = await Movie.find({
-      _id: { $nin: neList?.split(",") ? neList?.split(",") : [] },
+      _id: { $nin: neList ? neList : [] },
     });
   }
   return resp;
 };
 
-const getUserMovieList = async ({ userId }) => {
+const getUserMovieList = async ({ userId, search = "" }) => {
+  let pipline = [
+    {
+      $match: {
+        $expr: {
+          $in: ["$_id", "$$movieIds"],
+        },
+      },
+    },
+  ];
+
+  if (search != "") {
+    pipline = [
+      {
+        $match: {
+          $text: { $search: search },
+        },
+      },
+      ...pipline,
+    ];
+  }
+
   let resp = await UserMovieList.aggregate([
     { $match: { userId: ObjectId(userId) } },
     {
       $lookup: {
         from: "movies",
-        localField: "movieList.movieId",
-        foreignField: "_id",
+        let: {
+          movieIds: "$movieList.movieId",
+          watched: "$movieList.watched",
+        },
+        pipeline: pipline,
         as: "newMovieList",
       },
     },
+    {
+      $addFields: {
+        newMovieList: {
+          $map: {
+            input: "$newMovieList",
+            in: {
+              $mergeObjects: [
+                "$$this",
+                {
+                  watched: {
+                    $arrayElemAt: [
+                      "$movieList.watched",
+                      {
+                        $indexOfArray: ["$newMovieList._id", "$$this._id"],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        },
+        movieList: "$$REMOVE",
+      },
+    },
   ]);
-
-  return resp;
+  return resp[0];
 };
 
 const deleteMovieItem = async ({ userId, movieId }) => {
@@ -85,9 +130,6 @@ const deleteMovieItem = async ({ userId, movieId }) => {
       },
     }
   );
-// let resp = await UserMovieList.fin
-//   console.log(resp,'helo');
-//   resp.save()
   return resp;
 };
 

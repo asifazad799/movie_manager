@@ -1,0 +1,22 @@
+# Exclude all files and directories starting with .git
+.git
+.gitignore
+
+# Exclude all temporary files
+*.tmp
+*.bak
+
+# Exclude node_modules directory for Node.js applications
+node_modules
+
+# Exclude log files
+*.log
+
+# Exclude development and editor-specific files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Exclude .env file
+.env
