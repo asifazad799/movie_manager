@@ -6,7 +6,7 @@ const protectedRoutes = require("../routes/protectedRoutes");
 const { authMidleWares } = require("../midleWares");
 
 router.get("/test", async (req, res) => {
-  res.status(200).json({ message: "hello" });
+  res.status(200).json({ message: `hello ${req?.query?.text}` });
 });
 
 router.get("/test-error", async (req, res, next) => {
