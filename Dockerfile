@@ -4,7 +4,7 @@ ARG PORT
 
 # Set environment variables
 ENV NODE_ENV=production
-ENV PORT=$PORT
+ENV PORT=8081
 
 # Set the working directory
 WORKDIR /app
