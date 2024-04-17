@@ -9,7 +9,7 @@ router.get("/test", async (req, res) => {
   res.status(200).json({ message: `hello ${req?.query?.text}` });
 });
 
-router.get("/test-error", async (req, res, next) => {
+router.get("/test-crash", async (req, res, next) => {
   try {
     console.log("Simulating server crash...");
     process.exit(1);
