@@ -1,13 +1,14 @@
 const jwt = require("jsonwebtoken");
-const { errorHandling } = require("../utils/errorHandlers");
+const { sendErrorResponse } = require("../utils/errorHandlers");
 
 const authenticateUser = async (req, res, next) => {
   let token = req.headers?.authorization;
+
   if (token) {
     jwt.verify(token.split(" ")[1], process.env.KEY, (err, valid) => {
       if (err) {
         err.statusCode = 401;
-        next(err);
+        sendErrorResponse(res, err);
       }
       if (valid) {
         next();
@@ -16,7 +17,7 @@ const authenticateUser = async (req, res, next) => {
   } else {
     const error = new Error("please provide token");
     error.statusCode = 401;
-    next(error);
+    sendErrorResponse(res, error);
   }
 };
 
