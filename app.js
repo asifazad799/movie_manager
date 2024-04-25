@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const app = express();
-var indexRouter = require("./src/routes/index");
+var indexRouter = require("./src/routes");
 const { errorHandler, notFound } = require("./src/midleWares/errorHandler");
 const { connectToDatabase } = require("./src/config");
 

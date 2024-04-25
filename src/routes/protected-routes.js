@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
-const { movieService } = require("../../../serives");
+const { movieService } = require("../serives");
 
-router.use("/", movieService);
+router.use("/movie", movieService);
 
 module.exports = router;

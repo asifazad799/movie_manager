@@ -1,3 +1,4 @@
 const authenticationService = require("./authentication");
+const testService = require("./test");
 
-module.exports = { authenticationService };
+module.exports = { authenticationService, testService };
