@@ -1,6 +1,8 @@
 const { movieHelper, userHelpers } = require("../helpers");
 
-const addMovieToUser = async (req, res, next) => {
+const { sendErrorResponse } = require("../utils/errorHandlers");
+
+const addMovieToUser = async (req, res) => {
   try {
     const { selectedlist, userId, ...rest } = req?.body;
 
@@ -23,20 +25,20 @@ const addMovieToUser = async (req, res, next) => {
 
     res.status(200).json({ message: "success", movieList });
   } catch (error) {
-    next(error);
+    sendErrorResponse(res, error);
   }
 };
 
-const bulkAddToMovieList = async (req, res, next) => {
+const bulkAddToMovieList = async (req, res) => {
   try {
     let response = await movieHelper?.bulkUploadMovieList(req.body?.movieList);
     return res.status(200).json({ message: "upload success", response });
   } catch (error) {
-    next(error);
+    sendErrorResponse(res, error);
   }
 };
 
-const getMovieList = async (req, res, next) => {
+const getMovieList = async (req, res) => {
   try {
     const { search = "", userId } = req?.query;
 
@@ -51,11 +53,11 @@ const getMovieList = async (req, res, next) => {
 
     return res.status(200).json({ message: "success", list: resp });
   } catch (error) {
-    next(error);
+    sendErrorResponse(res, error);
   }
 };
 
-const getUserMovieList = async (req, res, next) => {
+const getUserMovieList = async (req, res) => {
   try {
     const { userId, search = "" } = req?.query;
     let resp = await movieHelper?.getUserMovieList({
@@ -65,11 +67,11 @@ const getUserMovieList = async (req, res, next) => {
 
     return res.status(200).json({ list: resp });
   } catch (error) {
-    next(error);
+    sendErrorResponse(res, error);
   }
 };
 
-const deleteMovie = async (req, res, next) => {
+const deleteMovie = async (req, res) => {
   try {
     await movieHelper?.deleteMovieItem({
       userId: req?.query?.userId,
@@ -78,7 +80,7 @@ const deleteMovie = async (req, res, next) => {
 
     return res.status(200).json({ message: "success" });
   } catch (error) {
-    next(error);
+    sendErrorResponse(res, error);
   }
 };
 

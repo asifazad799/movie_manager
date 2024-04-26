@@ -1,7 +1,7 @@
-const { errorHandling } = require("../utils/errorHandlers");
+const { sendErrorResponse } = require("../utils/errorHandlers");
 
 const errorHandler = (error, req, res, next) => {
-  errorHandling?.sendErrorResponse(res, error);
+  sendErrorResponse(res, error);
 };
 
 const notFound = (req, res, next) => {

@@ -1,11 +1,13 @@
+var express = require("express");
 const {
   validateRequestBody,
   validateRequestQuery,
 } = require("zod-express-middleware");
-const { movieValidator } = require("../validations");
-var express = require("express");
-const { movieController } = require("../controllers");
+
 var router = express.Router();
+
+const { movieValidator } = require("../../validations");
+const { movieController } = require("../../controllers");
 
 router.post(
   "/add",

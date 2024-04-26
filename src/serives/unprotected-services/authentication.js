@@ -1,7 +1,7 @@
 const { validateRequestBody } = require("zod-express-middleware");
-const { userValidations2 } = require("../validations");
+const { userValidations2 } = require("../../validations");
 var express = require("express");
-const { userController } = require("../controllers");
+const { userController } = require("../../controllers");
 var router = express.Router();
 
 router.post(
