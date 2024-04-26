@@ -35,9 +35,6 @@ env:
   ECR_REPOSITORY: movie-manager-node-app # set this to your Amazon ECR repository name
   ECS_SERVICE: movie-manager-node-app-service-lb-v2 # set this to your Amazon ECS service name
   ECS_CLUSTER: move-manager-node-LB-cluster # set this to your Amazon ECS cluster name
-  # ECS_TASK_DEFINITION:
-  #   move-manager-node-LB-task-def-revision2.json # set this to the path to your Amazon ECS task definition
-    # file, e.g. .aws/task-definition.json
   CONTAINER_NAME:
     move-manager-node-LB-container # set this to the name of the container in the
     # containerDefinitions section of your task definition
@@ -62,7 +59,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Retrieve task definition 
+      - name: Retrieve task definition
         id: get-task-definition
         run: |
           json=$(aws ssm get-parameter --name movie-manger-task-definition --query 'Parameter.Value' --output text)
