@@ -66,7 +66,8 @@ jobs:
         id: get-task-definition
         run: |
           json=$(aws ssm get-parameter --name movie-manger-task-definition --query 'Parameter.Value' --output text)
-          echo "export ECS_TASK_DEFINITION=$json" >> $GITHUB_ENV
+          json=$(echo "$json" | jq -Rs .)
+          echo "ECS_TASK_DEFINITION=$json" >> $GITHUB_ENV
 
       - name: Login to Amazon ECR
         id: login-ecr
