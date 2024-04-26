@@ -1,7 +1,5 @@
 FROM node:20-alpine
 
-ARG PORT
-
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=$PORT
