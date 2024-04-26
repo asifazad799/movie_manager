@@ -66,8 +66,7 @@ jobs:
         id: get-task-definition
         run: |
           json=$(aws ssm get-parameter --name movie-manger-task-definition --query 'Parameter.Value' --output text)
-          json=$(echo "$json" | jq -Rs .)
-          echo "ECS_TASK_DEFINITION=$json" >> $GITHUB_ENV
+          echo "$json" > task-definition.json
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -91,7 +90,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          task-definition: task-definition.json
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
