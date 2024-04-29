@@ -18,7 +18,7 @@ app.use(
   })
 );
 
-app.use("/", indexRouter);
+app.use("/api", indexRouter);
 
 app.use(notFound);
 app.use(errorHandler);
