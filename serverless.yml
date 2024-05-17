@@ -1,0 +1,20 @@
+service: movie-manager
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  timeout: 15
+  memorySize: 2048
+  stage: dev
+  region: eu-north-1
+functions:
+  movieApp:
+    handler: handler.movieApp
+    events:
+      - http: ANY /{proxy}
+      - http: ANY /
+    environment:
+      PORT: 8081
+      DBKEY: mongodb+srv://asif_azad:3RI8g4Ejw2Q2OPNQ@cluster0.gtd9mvq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      KEY: 123ui

@@ -1,4 +1,12 @@
+
 .env
 node_modules
 Dockerfile.dev
 pnpm-lock.yaml
+
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
