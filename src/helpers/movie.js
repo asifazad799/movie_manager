@@ -66,6 +66,18 @@ const getUserMovieList = async ({ userId, search = "" }) => {
         },
       },
     },
+    {
+      $addFields: {
+        watched: {
+          $arrayElemAt: [
+            "$$watched",
+            {
+              $indexOfArray: ["$$movieIds", "$_id"],
+            },
+          ],
+        },
+      },
+    },
   ];
 
   if (search != "") {
@@ -93,30 +105,35 @@ const getUserMovieList = async ({ userId, search = "" }) => {
       },
     },
     {
-      $addFields: {
-        newMovieList: {
-          $map: {
-            input: "$newMovieList",
-            in: {
-              $mergeObjects: [
-                "$$this",
-                {
-                  watched: {
-                    $arrayElemAt: [
-                      "$movieList.watched",
-                      {
-                        $indexOfArray: ["$newMovieList._id", "$$this._id"],
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        },
-        movieList: "$$REMOVE",
+      $project: {
+        movieList: 0,
       },
     },
+    // {
+    //   $addFields: {
+    //     newMovieList: {
+    //       $map: {
+    //         input: "$newMovieList",
+    //         in: {
+    //           $mergeObjects: [
+    //             "$$this",
+    //             {
+    //               watched: {
+    //                 $arrayElemAt: [
+    //                   "$movieList.watched",
+    //                   {
+    //                     $indexOfArray: ["$newMovieList._id", "$$this._id"],
+    //                   },
+    //                 ],
+    //               },
+    //             },
+    //           ],
+    //         },
+    //       },
+    //     },
+    //     movieList: "$$REMOVE",
+    //   },
+    // },
   ]);
   return resp[0];
 };
