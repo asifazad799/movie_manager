@@ -109,6 +109,7 @@ const getUserMovieList = async ({ userId, search = "" }) => {
         movieList: 0,
       },
     },
+    // this logic in moved to line no : 69
     // {
     //   $addFields: {
     //     newMovieList: {
